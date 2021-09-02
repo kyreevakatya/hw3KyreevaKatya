@@ -68,7 +68,7 @@ class Color
 }
 
 $color = new Color(200, 200, 200);
-$mixedColor = $color->mix(new Color(70, 55, 60));
+$mixedColor = $color->mix(new Color(100, 100, 100));
 $mixedColor->getRed(); // 150
 $mixedColor->getGreen(); // 150
 $mixedColor->getBlue(); // 150
