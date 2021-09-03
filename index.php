@@ -67,7 +67,7 @@ class Color
     }
     public function mix  (Color  $color): Color
     {
-        return new Color(  (int)($this->getRed()+$color-> getRed())/2, (int)($this->getGreen()+$color-> getGreen())/2, (int)($this->getBlue()+$color-> getBlue())/2);
+        return new Color( (int)(($this->getRed() + $color->getRed()) / 2), (int)(($this->getGreen() + $color->getGreen()) / 2), (int)(($this->getBlue() + $color-> getBlue()) / 2));
 
     }
 
@@ -75,7 +75,7 @@ class Color
 }
 
 $color = new Color(200, 200, 200);
-$mixedColor = $color->mix(new Color(115, 103, 199));
+$mixedColor = $color->mix(new Color(100, 100, 100));
 $mixedColor->getRed(); // 150
 $mixedColor->getGreen(); // 150
 $mixedColor->getBlue(); // 150
@@ -84,4 +84,3 @@ if (!$color->equals($mixedColor)) {
     echo 'Цвета не равны';
 }
 
-var_dump($mixedColor);
