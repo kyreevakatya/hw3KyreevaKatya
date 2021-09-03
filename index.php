@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types = 1);
 class Color
 {
     private int $red;
@@ -18,9 +19,7 @@ class Color
         if ($red <0 || $red >255) {
             exit ('Число должно быть в диапазоне от 0 до 255');
     }
-        if (is_float($red)){
-            return round($red);
-        }
+
         $this->red= $red;
     }
 
@@ -34,9 +33,7 @@ class Color
         if ($green <0 || $green >255) {
             exit ('Число должно быть в диапазоне от 0 до 255');
         }
-        if (is_float($green)){
-            return round($green);
-        }
+
         $this->green= $green;
     }
 
@@ -50,9 +47,7 @@ class Color
         if ($blue <0 || $blue >255) {
             exit ('Число должно быть в диапазоне от 0 до 255');
         }
-        if (is_float($blue)){
-            return round($blue);
-        }
+
         $this->blue= $blue;
     }
 
@@ -70,9 +65,9 @@ class Color
         }
 
     }
-    public function mix (Color $color): Color
+    public function mix  (Color  $color): Color
     {
-        return new Color(($this->getRed()+$color-> getRed())/2, ($this->getGreen()+$color-> getGreen())/2, ($this->getBlue()+$color-> getBlue())/2);
+        return new Color(  (int)($this->getRed()+$color-> getRed())/2, (int)($this->getGreen()+$color-> getGreen())/2, (int)($this->getBlue()+$color-> getBlue())/2);
 
     }
 
@@ -80,7 +75,7 @@ class Color
 }
 
 $color = new Color(200, 200, 200);
-$mixedColor = $color->mix(new Color(100, 100, 100));
+$mixedColor = $color->mix(new Color(115, 103, 199));
 $mixedColor->getRed(); // 150
 $mixedColor->getGreen(); // 150
 $mixedColor->getBlue(); // 150
@@ -89,3 +84,4 @@ if (!$color->equals($mixedColor)) {
     echo 'Цвета не равны';
 }
 
+var_dump($mixedColor);
