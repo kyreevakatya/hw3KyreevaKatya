@@ -1,6 +1,7 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
+
 class Color
 {
     private int $red;
@@ -9,66 +10,75 @@ class Color
 
     public function __construct(int $red, int $green, int $blue)
     {
-        $this-> setRed ($red);
-        $this-> setGreen ($green);
-        $this-> setblue ($blue);
+        $this->setRed($red);
+        $this->setGreen($green);
+        $this->setblue($blue);
     }
 
-    private function setRed ( int $red)
+    private function setRed(int $red)
     {
-        if ($red <0 || $red >255) {
-            exit ('Число должно быть в диапазоне от 0 до 255');
+        $this->validate($red);
+
+        $this->red = $red;
     }
 
-        $this->red= $red;
-    }
-
-    public function getRed (): int
+    public function getRed(): int
     {
-        return $this-> red;
+        return $this->red;
 
     }
-    private function setGreen (int $green)
+
+    private function setGreen(int $green)
     {
-        if ($green <0 || $green >255) {
+        $this->validate($green);
+
+        $this->green = $green;
+    }
+
+    public function getGreen(): int
+    {
+        return $this->green;
+
+    }
+
+    private function setBlue(int $blue)
+    {
+        $this->validate($blue);
+
+        $this->blue = $blue;
+    }
+
+    public function getBlue(): int
+    {
+        return $this->blue;
+
+    }
+
+    private function validate($value)
+    {
+        if ($value < 0 || $value > 255) {
             exit ('Число должно быть в диапазоне от 0 до 255');
         }
-
-        $this->green= $green;
     }
 
-    public function getGreen (): int
+    public function equals(Color $color): bool
     {
-        return $this-> green;
-
-    }
-    private function setBlue ( int $blue)
-    {
-        if ($blue <0 || $blue >255) {
-            exit ('Число должно быть в диапазоне от 0 до 255');
-        }
-
-        $this->blue= $blue;
+        return $this->getRed() == $color->getRed() &&
+            $this->getGreen() == $color->getGreen() &&
+            $this->getBlue() == $color->getBlue();
     }
 
-    public function getBlue (): int
+    public function mix(Color $color): Color
     {
-        return $this-> blue;
+        return new Color((int)(($this->getRed() + $color->getRed()) / 2),
+            (int)(($this->getGreen() + $color->getGreen()) / 2),
+            (int)(($this->getBlue() + $color->getBlue()) / 2));
 
     }
-    public function equals (Color $color): bool
-    {
-        if ($this->getRed()==$color-> getRed() && $this->getGreen()==$color-> getGreen() && $this->getBlue()==$color-> getBlue() ){
-            return true;
-        } else {
-            return false;
-        }
 
-    }
-    public function mix  (Color  $color): Color
+    public static function random(): self
     {
-        return new Color( (int)(($this->getRed() + $color->getRed()) / 2), (int)(($this->getGreen() + $color->getGreen()) / 2), (int)(($this->getBlue() + $color-> getBlue()) / 2));
-
+        return new self (rand(0, 255), rand(0, 255), rand(0, 255));
     }
 
 
@@ -84,3 +94,12 @@ if (!$color->equals($mixedColor)) {
     echo 'Цвета не равны';
 }
 
+$color1 = Color:: random();
+$color2 = Color:: random();
+$mixedColor1 = $color1->mix($color2);
+
+var_dump($mixedColor1);
+
+if (!$color1->equals($mixedColor1)) {
+    echo 'Цвета не равны';
+}
